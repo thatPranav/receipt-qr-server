@@ -41,12 +41,18 @@ app.post("/uploadphoto", upload.single("picture"), (req, res) => {
     console.log("saved to database");
     //
 
-    QRCode.toDataURL("localhost:3000/photo/" + result.insertedId, function(
-      err,
-      url
-    ) {
-      res.send(url);
-    });
+    QRCode.toDataURL(
+      "http://192.168.101.139:3000/photo/" + result.insertedId,
+      function(err, url) {
+        // console.log(result.ops[0].image);
+        res.send(`<img src=${url} />`);
+        // res.send(`<img src="data:image/png;base64, ${encode_image}" />`);
+        // res.send(
+        //   `<a download="${result.insertedId}.png" href="data:image/png;base64,${encode_image}">Download</a>`
+        // res.send(encode_image);
+        // );
+      }
+    );
   });
 });
 
